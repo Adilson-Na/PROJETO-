@@ -1,0 +1,157 @@
+using System;
+using System.Threading; // Para usar Thread.Sleep, se necessário
+
+namespace ProjetoMotores
+{
+    class Programa    {
+        static void Main(string[] args)
+        {
+            // Variáveis globais ou de escopo principal, se necessário.
+            // Pelo código, parece que 'valor' e 'motorMaior'/'motorMenor' são importantes.
+            int valor = 0; // Inicialize com um valor padrão
+            int motorMaior = 0;
+            int motorMenor = 0;
+
+            // Variáveis para representar os "motores"
+            // Supondo que você tenha um array ou lista de motores para controlar.
+            // Vou criar um array simples para demonstração.
+            int[] motores = new int[5]; // Exemplo: 5 motores, você pode ajustar o tamanho
+
+            // Inicializando os motores (opcional, dependendo da sua necessidade)
+            for (int i = 0; i < motores.Length; i++)
+            {
+                motores[i] = 0; // Ou um valor inicial relevante
+            }
+
+            // Loop principal do programa para o menu
+            while (true) // Loop infinito até que o usuário decida sair
+            {
+                Console.Clear(); // Limpa o console a cada iteração do menu
+                Console.WriteLine("=== MENU DE CONTROLE DE MOTORES ===");
+                Console.WriteLine("1 - LIGAR MOTOR (específico)");
+                Console.WriteLine("2 - TESTAR MOTORES (todos)");
+                Console.WriteLine("3 - MAIOR VALOR");
+                Console.WriteLine("4 - MENOR VALOR");
+                Console.WriteLine("0 - SAIR");
+                Console.Write("Escolha uma opção: ");
+
+                string opcaoStr = Console.ReadLine();
+                int opcao;
+
+                if (!int.TryParse(opcaoStr, out opcao))
+                {
+                    Console.WriteLine("Opção inválida. Por favor, digite um número.");
+                    Thread.Sleep(1500); // Pausa para o usuário ler a mensagem
+                    continue; // Volta para o início do loop
+                }
+
+                switch (opcao)
+                {
+                    case 1:
+                        Console.WriteLine("\n--- LIGAR MOTOR ESPECÍFICO ---");
+                        Console.Write("Digite o número do motor (0 a {0}): ", motores.Length - 1);
+                        string motorIndexStr = Console.ReadLine();
+                        int motorIndex;
+
+                        if (int.TryParse(motorIndexStr, out motorIndex) && motorIndex >= 0 && motorIndex < motores.Length)
+ {
+                            // Ação para ligar o motor.
+                            // Aqui você colocaria a lógica real para interagir com o motor.
+                            // Por exemplo, chamar uma função de hardware ou mudar um estado.
+                            motores[motorIndex] = 1; // Exemplo: 1 para ligado
+                            Console.WriteLine($"Motor {motorIndex} LIGADO!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Número de motor inválido.");
+                        }
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("\n--- TESTE DE VALORES DOS MOTORES ---");
+                        // Parece que esta seção interage com 'valor' e 'motores'
+                        // O código original mostrava: Console.WriteLine("valor de {0}", valor);
+                        // E também: Console.WriteLine("Consulte Motor[{0}]", x);
+                        // Assumindo que você quer exibir o estado de todos os motores.
+
+                        Console.WriteLine($"Valor de referência: {valor}");
+                        Console.WriteLine("Estados atuais dos motores:");
+                        for (int i = 0; i < motores.Length; i++)
+                        {
+                            Console.WriteLine($"Motor[{i}]: {motores[i]}"); // Exibe o estado atual
+                        }
+
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+
+                    case 3: // MAIOR VALOR
+                        Console.WriteLine("\n--- MAIOR VALOR ---");
+                        // O código original tinha: "Console.WriteLine("Maior valor foi lançado ainda")"
+                        // E depois: "Console.WriteLine("motor [0] maior valor {1}", motorMaior, 1);"
+                        // Isso sugere que 'motorMaior' guarda o índice do motor com o maior valor.
+                        // Precisamos determinar qual motor tem o maior valor.
+
+                        if (motores.Length == 0)
+                        {
+                            Console.WriteLine("Nenhum motor para comparar.");
+                        }
+                        else
+                        {
+                            motorMaior = 0; // Assume o primeiro motor como o maior inicialmente
+                            for (int i = 1; i < motores.Length; i++)
+                            {
+                                if (motores[i] > motores[motorMaior])
+                                {
+                                    motorMaior = i; // Atualiza o índice do motor com o maior valor
+                                }
+ }
+                            Console.WriteLine($"O motor com o maior valor é o Motor[{motorMaior}] com valor: {motores[motorMaior]}");
+                        }
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+
+                    case 4: // MENOR VALOR
+                        Console.WriteLine("\n--- MENOR VALOR ---");
+                        // Similar ao MAIOR VALOR, mas para o menor.
+                        // O código original tinha: "Console.WriteLine("Menor valor foi lançado ainda")"
+                        // E depois: "Console.WriteLine("motor [0] menor valor {1}", motorMenor, 1);"
+
+                        if (motores.Length == 0)
+                        {
+                            Console.WriteLine("Nenhum motor para comparar.");
+                        }
+                        else
+                        {
+                            motorMenor = 0; // Assume o primeiro motor como o menor inicialmente
+                            for (int i = 1; i < motores.Length; i++)
+                            {
+                                if (motores[i] < motores[motorMenor])
+                                {
+                                    motorMenor = i; // Atualiza o índice do motor com o menor valor
+                                }
+                            }
+                            Console.WriteLine($"O motor com o menor valor é o Motor[{motorMenor}] com valor: {motores[motorMenor]}");
+                        }
+                        Console.WriteLine("Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+
+                    case 0:
+                        Console.WriteLine("Saindo do programa. Até mais!");
+                        return; // Sai do método Main, encerrando o programa
+
+                    default:
+                        Console.WriteLine("Opção inválida. Por favor, escolha uma opção válida do menu.");
+                        Thread.Sleep(1500);
+                        break;
+                }
+            }
+        }
+    }
+}
+
+
